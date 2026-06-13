@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FarmShield AI — Crop Disease Detection</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon"><i class="ti ti-leaf"></i></div>
+      <span class="logo-text">Farm<span class="green">Shield</span> AI</span>
+    </div>
+    <p class="tagline">Crop disease detection powered by AI — instant results, actionable treatments</p>
+  </header>
+
+  <!-- UPLOAD ZONE -->
+  <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+    <i class="ti ti-camera-plus"></i>
+    <p><strong>Upload crop photo</strong> or click to browse</p>
+    <p class="sub">JPG, PNG — or pick a sample below</p>
+    <input type="file" id="fileInput" accept="image/*" />
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-area" id="previewArea">
+    <img id="previewImg" class="preview-img" src="" alt="Uploaded crop" />
+    <button class="change-btn" onclick="resetUpload()"><i class="ti ti-refresh"></i> Change</button>
+  </div>
+
+  <!-- SAMPLE CHIPS -->
+  <div class="sample-section">
+    <div class="sample-label">Or try a sample crop disease:</div>
+    <div class="sample-grid">
+      <div class="sample-chip" onclick="selectSample(this, 'blight')"><i class="ti ti-plant-2"></i> Tomato Blight</div>
+      <div class="sample-chip" onclick="selectSample(this, 'rust')"><i class="ti ti-plant"></i> Wheat Rust</div>
+      <div class="sample-chip" onclick="selectSample(this, 'mildew')"><i class="ti ti-trees"></i> Powdery Mildew</div>
+      <div class="sample-chip" onclick="selectSample(this, 'mosaic')"><i class="ti ti-seeding"></i> Mosaic Virus</div>
+      <div class="sample-chip" onclick="selectSample(this, 'healthy')"><i class="ti ti-leaf"></i> Healthy Crop</div>
+    </div>
+  </div>
+
+  <!-- DETECT BUTTON -->
+  <button class="detect-btn" id="detectBtn" onclick="detect()" disabled>
+    <i class="ti ti-microscope"></i> Detect Disease
+  </button>
+
+  <!-- LOADING BAR -->
+  <div class="loading-bar" id="loadingBar">
+    <div class="loading-track"><div class="loading-fill" id="loadingFill"></div></div>
+    <div class="loading-text" id="loadingText">Analyzing crop image...</div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="resultCard"></div>
+
+</div>
+
+<script src="js/diseases.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
