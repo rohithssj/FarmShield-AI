@@ -23,8 +23,35 @@ const diseaseMap = {
 };
 
 async function detectDiseaseWithRoboflow(imageFile) {
-  console.log("Waiting for Roboflow model deployment...");
-  return null;
+  try {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    const response = await fetch('http://localhost:5000/api/classify', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error(`Backend error: ${response.status}`);
+
+    const result = await response.json();
+    console.log('Backend Response:', result);
+
+    if (!result.success) {
+      throw new Error(result.error || 'Classification failed');
+    }
+
+    const predictedClass = result.className;
+    const confidence = result.confidence;
+
+    console.log('Prediction Class:', predictedClass);
+    console.log('Confidence:', confidence);
+
+    return { className: predictedClass, confidence: confidence };
+  } catch (error) {
+    console.error('Classification Error:', error);
+    throw error;
+  }
 }
 
 function getDiseaseKey(predictionClass) {
@@ -118,8 +145,8 @@ async function detect() {
 
   const steps = [
     'Preparing image...',
-    'Reading filename...',
-    'Matching disease...',
+    'Sending to Roboflow...',
+    'Classifying disease...',
     'Loading recommendations...',
     'Done!'
   ];
@@ -138,23 +165,34 @@ async function detect() {
     }, 450);
   });
 
-  const selectedKey = selectedSample || 'healthy';
   let diseaseKey = 'healthy';
+  let roboflowFailed = false;
 
-  // Prepare Roboflow prediction (placeholder) and run progress animation in parallel
+  // Prepare Roboflow prediction and run progress animation in parallel
   const predPromise = (uploadedImage && currentUploadedFile)
-    ? detectDiseaseWithRoboflow(currentUploadedFile).catch(err => { console.error('Roboflow error', err); return null; })
+    ? detectDiseaseWithRoboflow(currentUploadedFile).catch(err => { 
+        console.error('Roboflow error:', err); 
+        roboflowFailed = true;
+        return null; 
+      })
     : Promise.resolve(null);
 
-  const [predictionClass] = await Promise.all([predPromise, progressPromise]);
+  const [prediction] = await Promise.all([predPromise, progressPromise]);
 
-  if (predictionClass) {
-    const mapped = getDiseaseKey(predictionClass);
-    console.log('Prediction:', predictionClass);
+  if (prediction && prediction.className) {
+    const mapped = getDiseaseKey(prediction.className);
     console.log('Mapped Disease:', mapped);
     diseaseKey = mapped;
+  } else if (roboflowFailed) {
+    // Show offline fallback message
+    const fallbackMsg = document.getElementById('cooldownMessage');
+    fallbackMsg.innerHTML = '⚠ Roboflow unavailable. Showing local recommendations.';
+    fallbackMsg.style.display = 'block';
+    setTimeout(() => { fallbackMsg.style.display = 'none'; }, 5000);
+    // Use selected sample or healthy
+    diseaseKey = selectedSample || 'healthy';
   } else {
-    // Offline fallback: use selected sample or healthy
+    // No image or no prediction
     diseaseKey = selectedSample || 'healthy';
   }
 
