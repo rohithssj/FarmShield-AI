@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FarmShield AI — Crop Disease Detection</title>
+  <title>FarmShield — Offline Disease Detection</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -16,9 +16,9 @@
   <header class="header">
     <div class="logo">
       <div class="logo-icon"><i class="ti ti-leaf"></i></div>
-      <span class="logo-text">Farm<span class="green">Shield</span> AI</span>
+      <span class="logo-text">Farm<span class="green">Shield</span></span>
     </div>
-    <p class="tagline">Crop disease detection powered by AI — instant results, actionable treatments</p>
+    <p class="tagline">Crop disease detection offline — instant results, actionable treatments</p>
   </header>
 
   <!-- UPLOAD ZONE -->
@@ -39,8 +39,9 @@
   <div class="sample-section">
     <div class="sample-label">Or try a sample crop disease:</div>
     <div class="sample-grid">
-      <div class="sample-chip" onclick="selectSample(this, 'blight')"><i class="ti ti-plant-2"></i> Tomato Blight</div>
-      <div class="sample-chip" onclick="selectSample(this, 'rust')"><i class="ti ti-plant"></i> Wheat Rust</div>
+      <div class="sample-chip" onclick="selectSample(this, 'blight')"><i class="ti ti-plant-2"></i> Tomato Late Blight</div>
+      <div class="sample-chip" onclick="selectSample(this, 'early_blight')"><i class="ti ti-plant-2"></i> Tomato Early Blight</div>
+      <div class="sample-chip" onclick="selectSample(this, 'rust')"><i class="ti ti-plant"></i> Wheat Stem Rust</div>
       <div class="sample-chip" onclick="selectSample(this, 'mildew')"><i class="ti ti-trees"></i> Powdery Mildew</div>
       <div class="sample-chip" onclick="selectSample(this, 'mosaic')"><i class="ti ti-seeding"></i> Mosaic Virus</div>
       <div class="sample-chip" onclick="selectSample(this, 'healthy')"><i class="ti ti-leaf"></i> Healthy Crop</div>
@@ -58,12 +59,18 @@
     <div class="loading-text" id="loadingText">Analyzing crop image...</div>
   </div>
 
+  <!-- COOLDOWN MESSAGE -->
+  <div id="cooldownMessage" class="cooldown-message" style="display:none;"></div>
+
   <!-- RESULT CARD -->
   <div class="result-card" id="resultCard"></div>
 
+  <!-- OFFLINE ASSISTANT -->
+  <section id="assistantSection" class="result-card" style="display: none; margin-top: 1.5rem;"></section>
+
 </div>
 
-<script src="js/diseases.js"></script>
-<script src="js/app.js"></script>
+<script src="js/diseases.js?v=2"></script>
+<script src="js/app.js?v=2"></script>
 </body>
 </html>

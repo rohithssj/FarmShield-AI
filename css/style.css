@@ -457,6 +457,109 @@ body {
 
 .share-btn:hover { background: var(--bg-2); }
 
+/* === OFFLINE ASSISTANT === */
+#assistantSection {
+  border-top: 4px solid var(--green-mid);
+}
+
+.assistant-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-2);
+}
+
+.assistant-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.assistant-content {
+  line-height: 1.6;
+}
+
+.assistant-section {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.assistant-section:last-child {
+  border-bottom: none;
+}
+
+.assistant-sec-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.assistant-text {
+  font-size: 13.5px;
+  color: var(--text-1);
+}
+
+.assistant-badge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+
+.assistant-badge-cell {
+  padding: 0.9rem 1.25rem;
+}
+
+.assistant-badge-cell:first-child {
+  border-right: 1px solid var(--border);
+}
+
+.assistant-badge-title {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.assistant-badge-val {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.warning-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--yellow-bg);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--yellow-text);
+  line-height: 1.5;
+  margin: 1rem 1rem 0;
+}
+
+/* === COOLDOWN MESSAGE === */
+.cooldown-message {
+  margin: 0.75rem 0 1rem;
+  padding: 12px 14px;
+  background: rgba(29, 158, 117, 0.1);
+  border: 1px solid rgba(29, 158, 117, 0.3);
+  color: var(--green-dark);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  text-align: center;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 480px) {
   .app { padding: 1rem 0.75rem 3rem; }
@@ -464,4 +567,6 @@ body {
   .severity-badge { margin-left: 0; align-self: flex-start; }
   .weather-row { gap: 6px; }
   .w-chip-val { font-size: 14px; }
+  .assistant-badge-grid { grid-template-columns: 1fr; }
+  .assistant-badge-cell:first-child { border-right: none; border-bottom: 1px solid var(--border); }
 }
